@@ -1,8 +1,13 @@
 body {
     font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-
+.container {
+    flex: 1;
+}
 
 
 /* Navbar */
@@ -108,4 +113,31 @@ body {
     opacity: 0.2;
     transition: 0.5s ease;
     background-color: white;
+}
+
+/* Add new form */
+.add-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+/* Edit form */
+.edit-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+
+/* Show Page */
+.show-img {
+    height: 50vh;
+}
+
+.btns {
+    display: flex;
+}
+
+.edit, .delete {
+    background-color: #fe424d !important;
+    border: none !important;
 }
