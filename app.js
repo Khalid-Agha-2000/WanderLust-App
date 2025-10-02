@@ -7,7 +7,8 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./public/utils/wrapAsync.js");
-let expressError = require("./public/utils/expressError.js");
+const expressError = require("./public/utils/expressError.js");
+const {listingSchema} = require("./schema.js");
 
 
 app.use(methodOverride("_method"));
@@ -36,6 +37,17 @@ app.get("/", (req, res) => {
     res.send("Server is working");
 });
 
+// schema validation middleware
+const validateListing = (req, res, next) => {
+    let {error} = listingSchema.validate(req.body);
+    if(error) {
+        let errMsg = error.details.map((el) => el.message).join(",");
+        throw new expressError(400, errMsg);
+    } else {
+        next();
+    }
+}
+
 //index route
 app.get("/listings", wrapAsync(async (req, res) => {
     const allListings = await Listings.find();
@@ -55,7 +67,7 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
 }));
 
 // update route
-app.patch("/listings/:id", wrapAsync(async (req, res) => {
+app.patch("/listings/:id", validateListing,  wrapAsync(async (req, res) => {
     let {id} = req.params;
     const {title, description, price, location, country, image} = req.body.listing;
     await Listings.findByIdAndUpdate(id, {
@@ -85,19 +97,12 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
 }));
 
 // add route
-app.post("/listings", wrapAsync(async(req, res, next) => {
-    if(!req.body.listing) {
-        throw(new expressError(400, "Send valid data for listing"));
-    }
+app.post("/listings", validateListing, wrapAsync(async(req, res, next) => {
     const newListing = new Listings(req.body.listing);
     await newListing.save();    
     res.redirect("/listings");
 }));
 
-// error handler for a wrong page query
-// app.all("*", (req, res, next) => {
-//     next(new ExpressError(404, "Page Not Found!"));
-// });
 
 app.all("/*splat", (req, res, next) => {
     next(new expressError(404, "Page Not Found!"));
@@ -107,7 +112,8 @@ app.all("/*splat", (req, res, next) => {
 app.use((err, req, res, next) => {
     let {statusCode = 500, message = "Something Went Wrong!"} = err;
     // res.status(statusCode).send(message);
-    res.render("error.ejs", {err});
+    console.log(err);
+    res.status(statusCode).render("error.ejs", {err});
 });
 
 app.listen(port, () => {
