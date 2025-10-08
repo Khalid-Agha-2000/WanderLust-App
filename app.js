@@ -9,6 +9,7 @@ const ejsMate = require("ejs-mate");
 const wrapAsync = require("./public/utils/wrapAsync.js");
 const expressError = require("./public/utils/expressError.js");
 const {listingSchema} = require("./schema.js");
+const Review = require("./models/review.js");
 
 
 app.use(methodOverride("_method"));
@@ -102,6 +103,13 @@ app.post("/listings", validateListing, wrapAsync(async(req, res, next) => {
     await newListing.save();    
     res.redirect("/listings");
 }));
+
+// reviews
+//Post Route
+app.post("/listings/:id/reviews", async(req, res) => {
+
+});
+
 
 
 app.all("/*splat", (req, res, next) => {
