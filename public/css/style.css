@@ -70,8 +70,8 @@ body {
 
 
 /* cards */
-
-.card {
+/* Listing and show cards */
+.listing-card, .show-card, .show-card-body {
     border: none !important;
     margin-bottom: 2rem;
 }
@@ -114,6 +114,11 @@ body {
     transition: 0.5s ease;
     background-color: white;
 }
+
+/* review-card */
+.review-card {
+}
+
 
 /* Add new form */
 .add-btn {
