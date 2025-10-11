@@ -25,7 +25,7 @@ router.get("/", wrapAsync(async (req, res) => {
     res.render("listings/index.ejs", {allListings});
 }));
 
-// create route / add new listing
+// create form route for listing
 router.get("/add", (req, res) => {
     res.render("listings/new.ejs");
 });
@@ -34,6 +34,10 @@ router.get("/add", (req, res) => {
 router.get("/:id/edit", wrapAsync(async (req, res) => {
     let {id} = req.params;
     let listing = await Listing.findById(id);
+    if(!listing) {
+        req.flash("error", "The listing you are trying to edit does not exist");
+        return res.redirect("/listings");
+    }
     res.render("listings/edit.ejs", {listing});
 }));
 
@@ -49,7 +53,7 @@ router.patch("/:id", validateListing,  wrapAsync(async (req, res) => {
         country,
         image: { url: image, filename: "listingimage" }   // force image to be an object
     });
-        // await Listings.findByIdAndUpdate(id, {...req.body.listing});
+    req.flash("success", "Listing was Updated!");
     res.redirect(`/listings/${id}`);
 }));
 
@@ -57,6 +61,10 @@ router.patch("/:id", validateListing,  wrapAsync(async (req, res) => {
 router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id).populate("reviews");
+    if(!listing) {
+        req.flash("error", "The listing you are looking for does not exist!");
+        return res.redirect("/listings");
+    }
     res.render("listings/show.ejs", { listing });
 }));
 
@@ -64,13 +72,15 @@ router.get("/:id", wrapAsync(async (req, res) => {
 router.delete("/:id", wrapAsync(async (req, res) => {
     let {id} = req.params;
     await Listing.findByIdAndDelete(id);
+    req.flash("deleted", "Listing Was Deleted!");
     res.redirect("/listings");
 }));
 
-// add route
+// add listing route
 router.post("/", validateListing, wrapAsync(async(req, res, next) => {
-    const newListing = new Listings(req.body.listing);
-    await newListing.save();    
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
+    req.flash("success", "New Listing Created!");
     res.redirect("/listings");
 }));
 
