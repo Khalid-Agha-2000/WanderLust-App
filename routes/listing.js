@@ -4,6 +4,7 @@ const wrapAsync = require("../public/utils/wrapAsync.js");
 const expressError = require("../public/utils/expressError.js");
 const {listingSchema} = require("../schema.js");
 const Listing = require("../Models/listing.js");
+const {isLoggedIn} = require("../middleware.js");
 
 
 
@@ -25,13 +26,14 @@ router.get("/", wrapAsync(async (req, res) => {
     res.render("listings/index.ejs", {allListings});
 }));
 
-// create form route for listing
-router.get("/add", (req, res) => {
-    res.render("listings/new.ejs");
+// create listing form
+router.get("/new", isLoggedIn, (req, res) => {
+    console.log(req.user);
+    res.render("./listings/new.ejs");
 });
 
 // edit form route
-router.get("/:id/edit", wrapAsync(async (req, res) => {
+router.get("/:id/edit", isLoggedIn, wrapAsync(async (req, res) => {
     let {id} = req.params;
     let listing = await Listing.findById(id);
     if(!listing) {
@@ -42,7 +44,7 @@ router.get("/:id/edit", wrapAsync(async (req, res) => {
 }));
 
 // update route
-router.patch("/:id", validateListing,  wrapAsync(async (req, res) => {
+router.patch("/:id", isLoggedIn, validateListing,  wrapAsync(async (req, res) => {
     let {id} = req.params;
     const {title, description, price, location, country, image} = req.body.listing;
     await Listing.findByIdAndUpdate(id, {
@@ -69,7 +71,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
 }));
 
 // delete route
-router.delete("/:id", wrapAsync(async (req, res) => {
+router.delete("/:id", isLoggedIn, wrapAsync(async (req, res) => {
     let {id} = req.params;
     await Listing.findByIdAndDelete(id);
     req.flash("deleted", "Listing Was Deleted!");
@@ -77,7 +79,7 @@ router.delete("/:id", wrapAsync(async (req, res) => {
 }));
 
 // add listing route
-router.post("/", validateListing, wrapAsync(async(req, res, next) => {
+router.post("/", isLoggedIn, validateListing, wrapAsync(async(req, res, next) => {
     const newListing = new Listing(req.body.listing);
     await newListing.save();
     req.flash("success", "New Listing Created!");
