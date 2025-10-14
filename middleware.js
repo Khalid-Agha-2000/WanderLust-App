@@ -1,3 +1,8 @@
+const Listing = require("./Models/listing");
+const expressError = require("./public/utils/expressError.js");
+const {listingSchema, reviewSchema} = require("./schema.js");
+
+
 // check if user is logged in
 module.exports.isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()) {
@@ -15,3 +20,39 @@ module.exports.saveRedirectUrl = (req, res, next) => {
     }
     next();
 };
+
+// backend authorization middleware
+module.exports.isOwner = async (req, res, next) => {
+    let {id} = req.params;
+    let listing = await Listing.findById(id);
+    if(!listing.owner.equals(res.locals.currUser._id)) {
+        req.flash("error", "You don't have permission to edit");
+        return res.redirect(`/listings/${id}`);
+    }
+    next();
+}
+
+
+// schema validation middlewares
+// validation for listing
+module.exports.validateListing = (req, res, next) => {
+    let {error} = listingSchema.validate(req.body);
+    if(error) {
+        let errMsg = error.details.map((el) => el.message).join(",");
+        throw new expressError(400, errMsg);
+    } else {
+        next();
+    }
+}
+
+
+// schema validation for review
+module.exports.validateReview = (req, res, next) => {
+    let {error} = reviewSchema.validate(req.body);
+    if(error) {
+        let errMsg = error.details.map((el) => el.message).join(",");
+        throw new expressError(400, errMsg);
+    } else {
+        next();
+    }
+}
