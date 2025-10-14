@@ -13,24 +13,31 @@
                     <br><br>
                     <h4>Listing Description</h4>
                     <%= listing.description %><br>
+                    <br><br>
                     &#8360;: <%= listing.price.toLocaleString("in-IN") %><br>
-                    <%= listing.location %>
-                    <%= listing.country %>
+                    <br>
+                    <p>
+                        <%= listing.location %>,
+                        <%= listing.country %>
+                    </p>
+                    <hr>
                 </p>
 
             </div>
         </div>
-        <br>
-        <div class="col-1 btns">
-            <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark edit">Edit</a><br>
-            <form action="/listings/<%= listing.id %>?_method=DELETE" method="POST">
-                <button class="btn btn-dark offset-1 delete">Delete</button>
-            </form>
-        </div>
-        <br><br>
+        <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
+            <div class="col-1 btns">
+                <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark edit">Edit</a><br>
+                <form action="/listings/<%= listing.id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-dark offset-1 delete">Delete</button>
+                </form>
+            </div>
+            <br><br>
+        <% } %>
+
         
         <div>
-            <h4 class="col-8">Leave a Review</h4><br><br>
+            <h4 class="col-8">Leave a Review</h4><br>
             <form action="/listings/<%= listing.id %>/reviews" novalidate class="needs-validation" method="POST">
                 <div class="col-8 mb-3">
                     <label for="rating">Rating</label>
