@@ -57,3 +57,15 @@ module.exports.validateReview = (req, res, next) => {
         next();
     }
 }
+
+
+// backend authorization middleware for reviews
+module.exports.isAuthor = async (req, res, next) => {
+    let {id, reviewId} = req.params;
+    let review = await Review.findById(reviewId);
+    if(!review.author.equals(res.locals.currUser._id)) {
+        req.flash("error", "You can only delete your own reviews!");
+        return res.redirect(`/listings/${id}`);
+    }
+    next();
+}
