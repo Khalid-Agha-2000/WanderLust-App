@@ -1,4 +1,5 @@
 const Listing = require("./Models/listing");
+const Review = require("./Models/review.js");
 const expressError = require("./public/utils/expressError.js");
 const {listingSchema, reviewSchema} = require("./schema.js");
 
@@ -21,7 +22,7 @@ module.exports.saveRedirectUrl = (req, res, next) => {
     next();
 };
 
-// backend authorization middleware
+// backend authorization middleware for listings
 module.exports.isOwner = async (req, res, next) => {
     let {id} = req.params;
     let listing = await Listing.findById(id);
