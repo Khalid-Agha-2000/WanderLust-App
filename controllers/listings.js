@@ -1,0 +1,74 @@
+const Listing = require("../Models/listing");
+
+// index route
+module.exports.index = async (req, res) => {
+    const allListings = await Listing.find();
+    res.render("listings/index.ejs", {allListings});
+};
+
+// add new form route
+module.exports.renderNewForm = (req, res) => {
+    console.log(req.user);
+    res.render("./listings/new.ejs");
+};
+
+
+// show route
+module.exports.showListing = async (req, res) => {
+    let { id } = req.params;
+    const listing = await Listing.findById(id)
+    .populate({path: "reviews", populate: {
+        path: "author",
+    }})
+    .populate("owner");
+    if(!listing) {
+        req.flash("error", "The listing you are looking for does not exist!");
+        return res.redirect("/listings");
+    }
+    res.render("listings/show.ejs", { listing });
+}
+
+// create new listing route
+module.exports.createListing = async(req, res, next) => {
+    const newListing = new Listing(req.body.listing);
+    newListing.owner = req.user._id;
+    await newListing.save();
+    req.flash("success", "New Listing Created!");
+    res.redirect("/listings");
+};
+
+// edit form route
+module.exports.renderEditForm = async (req, res) => {
+    let {id} = req.params;
+    let listing = await Listing.findById(id);
+    if(!listing) {
+        req.flash("error", "The listing you are trying to edit does not exist");
+        return res.redirect("/listings");
+    }
+    res.render("listings/edit.ejs", {listing});
+};
+
+// update route
+module.exports.updateListing = async (req, res) => {
+    let {id} = req.params;
+    const {title, description, price, location, country, image} = req.body.listing;
+
+    await Listing.findByIdAndUpdate(id, {
+        title,
+        description,
+        price,
+        location,
+        country,
+        image: { url: image, filename: "listingimage" }   // force image to be an object
+    });
+    req.flash("success", "Listing was Updated!");
+    res.redirect(`/listings/${id}`);
+};
+
+// delete route
+module.exports.destroyListing = async (req, res) => {
+    let {id} = req.params;
+    await Listing.findByIdAndDelete(id);
+    req.flash("deleted", "Listing Was Deleted!");
+    res.redirect("/listings");
+};
