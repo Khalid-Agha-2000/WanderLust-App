@@ -4,7 +4,13 @@
         <br><br>
         <h3>Create a New Listing</h3>
         <br>
-        <form action="/listings" method="POST" novalidate class="needs-validation">
+        <form
+        action="/listings"
+        method="POST"
+        novalidate
+        class="needs-validation"
+        enctype="multipart/form-data">
+
             <div class="mb-3">
                 <label for="title" class="form-lable">Title</label>
                 <input
@@ -12,25 +18,30 @@
                 name="listing[title]"
                 placeholder="Add a catchy title"
                 class="form-control"
-                type="number"
                 required>
                 <div class="valid-feedback">Title Looks Good</div>
                 <div class="invalid-feedback">Please Enter a Title</div>
             </div>
+
             <div class="mb-3">
                 <label for="description" class="form-lable">Description</label>
-                <textarea type="text" name="listing[description]" class="form-control" type="number" required></textarea>
+
+                <textarea
+                type="text"
+                name="listing[description]"
+                class="form-control"
+                required></textarea>
+
                 <div class="valid-feedback">Description Looks Good</div>
                 <div class="invalid-feedback">Please Enter a Short Description</div>
             </div>
+
             <div class="mb-3">
-                <label for="image" class="form-lable">Image Link</label>
+                <label for="image" class="form-lable">Upload Listing Image</label>
                 <input
-                type="text"
                 name="listing[image]"
                 class="form-control"
-                placeholder="Enter Image URL/Link"
-                type="number"
+                type="file"
                 >
             </div>
             
@@ -41,12 +52,13 @@
                     name="listing[price]"
                     class="form-control"
                     placeholder="1200"
-                    type="text"
+                    type="number"
                     required
                     >
                     <div class="valid-feedback">Price Looks Good</div>
                     <div class="invalid-feedback">Please Enter a Valid Price</div>
                 </div>
+                
                 <div class="mb-3 col-md-8">
                     <label for="country" class="form-lable">Country</label>
                     <input
