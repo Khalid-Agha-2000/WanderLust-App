@@ -146,3 +146,12 @@ body {
     background-color: #fe424d !important;
     border: none !important;
 }
+
+
+/* Map styling */
+#map {
+    position: absolute;
+    width: 100%;
+    width: 400px;
+    border-radius: 5px;
+}

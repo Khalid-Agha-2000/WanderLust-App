@@ -25,7 +25,7 @@ module.exports.showListing = async (req, res) => {
         req.flash("error", "The listing you are looking for does not exist!");
         return res.redirect("/listings");
     }
-    res.render("listings/show.ejs", { listing });
+    res.render("listings/show.ejs", { listing, mapToken: process.env.MAPTOKEN});
 }
 
 // create new listing route
