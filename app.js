@@ -56,7 +56,7 @@ const sessionOptions = {
 
 // root
 app.get("/", (req, res) => {
-    res.send("Server is working");
+    res.redirect("/listings");
 });
 
 // session and flash

@@ -24,6 +24,7 @@ module.exports.showListing = async (req, res) => {
         path: "author",
     }})
     .populate("owner");
+
     if(!listing) {
         req.flash("error", "The listing you are looking for does not exist!");
         return res.redirect("/listings");
@@ -64,7 +65,7 @@ module.exports.renderEditForm = async (req, res) => {
         req.flash("error", "The listing you are trying to edit does not exist");
         return res.redirect("/listings");
     }
-
+    listing.geometry = response.body.features[0].geometry;
     let originalImageUrl = listing.image.url;
     originalImageUrl= originalImageUrl.replace("/upload", "/upload/w_250/");
     res.render("listings/edit.ejs", {listing, originalImageUrl});
