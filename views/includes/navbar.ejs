@@ -16,10 +16,28 @@
   #search-input {
     border-radius: 25px;
     font-size: 0.9rem;
+    padding: 0 50px 0 50px;
   }
+  .navbar-collapse {
+    background-color: #fff;
+  }
+
+  @media (max-width: 576px) {
+    .navbar-nav .d-flex {
+      flex-direction: column !important;
+    }
+    #search-input {
+      width: 100% !important;
+      margin-bottom: 5px;
+    }
+    .search-btn {
+      width: 100% !important;
+    }
+  }
+
 </style>
 
-<nav class="navbar navbar-expand-md navbar-light bg-body-light border-bottom sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +52,7 @@
         <form class="d-flex">
         <input
         class="form-control
-        me-2 col-3"
+        me-2"
         type="search"
         id="search-input"
         placeholder="Search destinations">

@@ -91,3 +91,10 @@ module.exports.destroyListing = async (req, res) => {
     req.flash("deleted", "Listing Was Deleted!");
     res.redirect("/listings");
 };
+
+// category route
+module.exports.renderCategory = async (req, res) => {
+    let { category } = req.params;
+    let allListings = await Listing.find();
+    res.render("listings/category.ejs", {category, allListings});
+};
