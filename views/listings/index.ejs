@@ -60,6 +60,10 @@
         <p>Arctic</p>
     </div>
     <div class="filter">
+        <div><i class="fa-solid fa-person-swimming" style="font-size: 22px;"></i></div>
+        <p>Pools</p>
+    </div>
+    <div class="filter">
         <div><i class="fa-solid fa-campground"></i></div>
         <p>Camping</p>
     </div>
@@ -82,7 +86,7 @@
         <div class="listing-card card col mt-5" style="width: ;">
             <a href="/listings/<%=listing._id%>" class="listing-link">
                 <img src="<%=listing.image.url%>" class="card-img-top" alt="listing_image" style="height: 20rem;">
-                <div class="card-img-overlay">abcd</div>
+                <div class="card-img-overlay"></div>
                 <div class="card-body">
                     <b><p class="card-title"><%= listing.title %></p></b>
                     <%= listing.price.toLocaleString("in-IN")  %>&#8360;/Night
