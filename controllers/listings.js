@@ -98,3 +98,21 @@ module.exports.renderCategory = async (req, res) => {
     let allListings = await Listing.find();
     res.render("listings/category.ejs", {category, allListings});
 };
+
+// search route
+module.exports.search = async (req, res) => {
+    const query = req.query.q?.trim() || "";
+    let allListings = [];
+    if (query) {
+        allListings = await Listing.find({
+            $or: [
+                { title: { $regex: query, $options: "i" } },
+                { description: { $regex: query, $options: "i" } },
+                { location: { $regex: query, $options: "i" } },
+                { category: { $regex: query, $options: "i" } },
+                { country: { $regex: query, $options: "i" } },
+            ]
+        });
+    }
+    res.render("listings/index.ejs", { allListings });
+};

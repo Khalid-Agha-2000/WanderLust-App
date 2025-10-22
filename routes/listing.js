@@ -21,6 +21,8 @@ router.route("/")
 // create listing form
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
+// search route
+router.get("/search", listingController.search);
 
 // /:id routes combined
 router.route("/:id")
