@@ -71,6 +71,11 @@ body {
 
 /* cards */
 /* Listing and show cards */
+.card {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
 .listing-card, .show-card, .show-card-body {
     border: none !important;
     margin-bottom: 2rem;
@@ -78,7 +83,6 @@ body {
 
 .card-img-top {
     border-radius: 1rem !important;
-    width: 100% !important;
 }
 
 .card-body {
@@ -88,21 +92,11 @@ body {
 .card-title {
     font-weight: 600;
 }
-/* 
-.card a {
-    text-decoration: none;
-    color: black;
-}
-
-.card a p:hover {
-    text-decoration: underline;
-} */
 
 .listing-link {
     text-decoration: none;
     color: black;
 }
-
 
 /* Card Effect */
 .card-img-overlay {
@@ -113,10 +107,6 @@ body {
     opacity: 0.2;
     transition: 0.5s ease;
     background-color: white;
-}
-
-/* review-card */
-.review-card {
 }
 
 
@@ -147,11 +137,22 @@ body {
     border: none !important;
 }
 
-
 /* Map styling */
 #map {
-    position: absolute;
-    width: 100%;
-    width: 400px;
     border-radius: 5px;
+    height: 400px;
+}
+
+#mapContainer {
+    height: 90vh;
+}
+
+@media (max-width: 576px) {
+    #map {
+        height: 70% !important;
+    }
+
+    #mapContainer {
+        height: 80vh;
+    }
 }
