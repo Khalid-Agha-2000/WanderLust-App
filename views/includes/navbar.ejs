@@ -33,8 +33,14 @@
     .search-btn {
       width: 100% !important;
     }
+    #filtersNav {
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      padding: 0.5rem;
+      background-color: #fff;
+      z-index: 2;
+    }
   }
-
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-body-light border-bottom sticky-top">
@@ -48,7 +54,7 @@
         <a class="nav-link" href="/listings">Explore</a>
       </div>
 
-      <div class="navbar-nav ms-auto">
+      <div class="navbar-nav ms-auto searchbar">
         <form class="d-flex" method="GET" action="/listings/search">
         <input
         class="form-control
