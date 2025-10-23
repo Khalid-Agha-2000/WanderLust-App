@@ -122,6 +122,10 @@ body {
     border: none !important;
 }
 
+.btn-success {
+    background-color: #fe424d !important;
+    border: none !important;
+}
 
 /* Show Page */
 .show-img {

@@ -1,8 +1,8 @@
 <% layout("./layouts/boilerplate") %>
 
 <div class="row mt-3">
-    <h3 class="col-6 offset-3">Log in to Wanderlust</h3>
-    <div class="col-6 row-6 offset-3">
+    <h5 class="col-6 offset-2">Log in to Wanderlust</h5>
+    <div class="col-7 col-lg-6 row-6 offset-2">
         <form action="/login" method="POST" novalidate class="needs-validation">
             <div class="mb-3">
                 <label for="username" class="form-lable">Username</label>
@@ -29,7 +29,8 @@
                 <div class="valid-feedback">Looks good!</div>
                 <div class="invalid-feedback">Please Enter a Password</div>
             </div>
-            <button class="btn btn-success">Login</button>
+            <button class="btn btn-success mb-3">Login</button><br>
+            <p class="mb-3" style="font-size: 0.8rem;">Don't have an account? <a href="/signup">register here</a></p>
         </form>
     </div>
 </div>
