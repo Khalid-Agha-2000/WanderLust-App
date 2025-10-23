@@ -26,18 +26,6 @@ body {
     color: #222222 !important;
 }
 
-
-/* footer */
-.f-info-links a {
-    text-decoration: none;
-    color: #222222;
-}
-
-.f-info-links a:hover {
-    text-decoration: underline;
-}
-
-.f-info-links,
 .f-info-socials,
 .f-info-brand {
     width: 100%;
@@ -45,7 +33,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+} 
 
 .f-info-socials {
     width: 100%;
@@ -59,7 +47,7 @@ body {
 
 .f-info {
     display: flex;
-    height: 8rem;
+    height: 6rem;
     background-color: #ebebeb;
     flex-wrap: wrap;
     justify-content: center;
@@ -104,11 +92,10 @@ body {
 }
 
 .card-img-overlay:hover {
-    opacity: 0.2;
+    opacity: 0.1;
     transition: 0.5s ease;
     background-color: white;
 }
-
 
 /* Add new form */
 .add-btn {
