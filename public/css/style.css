@@ -116,7 +116,7 @@ body {
 
 /* Show Page */
 .show-img {
-    height: 50vh;
+    height: 55vh;
 }
 
 .btns {
@@ -140,7 +140,7 @@ body {
 
 @media (max-width: 576px) {
     #map {
-        height: 70% !important;
+        height: 55% !important;
     }
 
     #mapContainer {
