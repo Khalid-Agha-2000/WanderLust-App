@@ -1,5 +1,9 @@
 ## Wanderlust – Full Stack Airbnb-like Application
 
+**Link to the deployed project:** [Click here to see Wanderlust-app live](https://wanderlust-app-ixhk.onrender.com/listings)
+
+**Video of the app on linkedin:** [Click to watch a short video of the project features](https://www.linkedin.com/posts/khalid-agha-7944a91b2_fullstack-webdevelopment-softwareengineering-activity-7388517076254138368-QNSe?utm_source=share&utm_medium=member_desktop&rcm=ACoAADGM-yABTJqfrShoasXU4af-x557hq8qip0)
+
 Wanderlust is a full-stack web application inspired by Airbnb. It allows users to explore, create, and manage property listings with ease. Designed for learning and practice, this project covers a wide range of features typical of a modern listing platform.
 Features
 
